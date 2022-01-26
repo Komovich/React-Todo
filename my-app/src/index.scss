@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none; // избавляемся от точек с лева в ul/li
+  outline: none; // сброс границ у кнопок
+  font-family: "Roboto", -apple-system, system-ui, sans-serif; // если нет первого шрифта значит будет следующий по списку.
+} // убираем свойства по умолчанию которые задаёт браузер
+
+.todo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 530px;
+  width: 750px;
+  transform: translate(-50%, -50%);
+
+  &__sidebar {
+    height: 100%;
+    background-color: #F4F6F8;
+    width: 200px;
+    border: 1px solid #f1f1f1; //граница между блоками
+    padding: 60px 20px;
+  }
+}
+
+.button{
+  background: #4dd599;
+  border-radius: 4px;
+  color: #fff;
+  border: 0;
+  padding: 10px 20px;
+  cursor: pointer;
+
+  &:hover{
+    background: darken(#4dd599, 6%); // при наведении увеличивется темнота цвета
+  }
+
+  &:active{
+    background: darken(#4dd599, 10%);
+  }
+}
+
+.field{
+  background: #fff;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 8px 12px;
+  width: 100%;
+
+  &:hover{
+    border-color: #efefef;
+  }
+}
