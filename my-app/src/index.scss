@@ -7,6 +7,7 @@
 } // убираем свойства по умолчанию которые задаёт браузер
 
 .todo {
+  display: flex;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -16,14 +17,19 @@
 
   &__sidebar {
     height: 100%;
-    background-color: #F4F6F8;
+    background-color: #f4f6f8;
     width: 200px;
     border: 1px solid #f1f1f1; //граница между блоками
     padding: 60px 20px;
   }
+
+  &__tasks {
+    flex: 1;
+    padding: 60px;
+  }
 }
 
-.button{
+.button {
   background: #4dd599;
   border-radius: 4px;
   color: #fff;
@@ -31,16 +37,16 @@
   padding: 10px 20px;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     background: darken(#4dd599, 6%); // при наведении увеличивется темнота цвета
   }
 
-  &:active{
+  &:active {
     background: darken(#4dd599, 10%);
   }
 }
 
-.field{
+.field {
   background: #fff;
   border: 1px solid #efefef;
   box-sizing: border-box;
@@ -48,7 +54,7 @@
   padding: 8px 12px;
   width: 100%;
 
-  &:hover{
+  &:hover {
     border-color: #efefef;
   }
 }

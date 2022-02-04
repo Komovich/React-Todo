@@ -1,8 +1,9 @@
 import React from "react";
 import classNames from "classnames";
 import "./List.scss";
+import removeSvg from "../../assets/img/remove.svg";
 
-function List({ items, onClick }) {
+function List({ items, onClick, isRemovable, onRemove }) {
 
   return (
     <ul className="list">
@@ -19,7 +20,8 @@ function List({ items, onClick }) {
             )}
           </i>
           <span onClick={onClick}> {item.name}</span> 
-        </li>
+          {isRemovable && (<img onClick={onRemove} className="list__remove-icon" src={removeSvg} alt="Remove icon" /> )}
+        </li>  
       ))}
     </ul>
   );
