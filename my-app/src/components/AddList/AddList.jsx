@@ -1,17 +1,38 @@
 import React, { useState } from "react";
 import List from "../List";
 import Badge from "../Badge";
-import closeSvg from "../../assets/img/close.svg"
+import closeSvg from "../../assets/img/close.svg";
 import "./AddList.scss";
 
-const AddList = ({ colors }) => {
-  const [visiblePopup, setVisiblePopup] = useState(false);
-  const [selectedColor, selectColor] = useState(colors[0].id);
+const AddList = ({ colors, onAdd }) => {
+  const [visiblePopup, setVisiblePopup] = useState(false); // для скрывания окна
+  const [selectedColor, selectColor] = useState(colors[0].id); // хранение выбранного цвета
+  const [inputValue, setInputValue] = useState(''); // хранение введенного значения
+
+  const onClose = () => {
+    setVisiblePopup(false);
+    selectColor(colors[0].id);
+    setInputValue('')
+  } // функция для закрытия окна
+  
+
+  const addList = () => {
+    if (!inputValue) { 
+      alert("Введите название списка");
+      return; //если не задано значение выводится алерт 
+    }
+    const color = colors.filter((c) => c.id === selectedColor)[0].name; // фильтрация для сравнение с всех цветов с выбраным
+    onAdd({ id: 1, name: inputValue, color }); // передача объекта в другой компонент для добавления 
+    setVisiblePopup(false); //скрытие окна
+    setInputValue(''); //сброс значения в инпуте
+    selectColor(colors[0].id); //сброс цвета
+  };
+  
 
   return (
     <div className="add-list">
       <List
-      onClick={() => setVisiblePopup(true)}
+        onClick={() => setVisiblePopup(true)}
         items={[
           {
             className: "list__add-button",
@@ -45,16 +66,33 @@ const AddList = ({ colors }) => {
       />
       {visiblePopup && (
         <div className="add-list__popup">
-          <img className="add-list__popup-close-btn" src={closeSvg} alt="" onClick={() => setVisiblePopup(false)} />
-          <input className="field" type="text" placeholder="Название списка" />
+          <img
+            className="add-list__popup-close-btn"
+            src={closeSvg}
+            alt=""
+            onClick={onClose}
+          />
+          <input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="field"
+            type="text"
+            placeholder="Название списка"
+          />
           <div className="add-list__popup-colors">
             {colors.map((color) => (
-              <Badge click={() => selectColor(color.id)} className={selectedColor === color.id && "active"} key={color.id} color={color.name} />
+              <Badge
+                click={() => selectColor(color.id)}
+                className={selectedColor === color.id && "active"}
+                key={color.id}
+                color={color.name}
+              />
             ))}
-            
           </div>
-          
-          <button className="button">Добавить</button>
+
+          <button className="button" onClick={addList}>
+            Добавить
+          </button>
         </div>
       )}
     </div>
