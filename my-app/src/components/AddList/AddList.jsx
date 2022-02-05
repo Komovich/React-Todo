@@ -22,7 +22,7 @@ const AddList = ({ colors, onAdd }) => {
       return; //если не задано значение выводится алерт 
     }
     const color = colors.filter((c) => c.id === selectedColor)[0].name; // фильтрация для сравнение с всех цветов с выбраным
-    onAdd({ id: 1, name: inputValue, color }); // передача объекта в другой компонент для добавления 
+    onAdd({ id: Date.now(), name: inputValue, color }); // передача объекта в другой компонент для добавления 
     setVisiblePopup(false); //скрытие окна
     setInputValue(''); //сброс значения в инпуте
     selectColor(colors[0].id); //сброс цвета

@@ -3,37 +3,72 @@
     {
       "id": 1,
       "name": "Продажи",
-      "colorId": 5
+      "colorId": 5,
+      "color": {
+        "id": 1,
+        "hex": "#C9D1D3",
+        "name": "grey"
+      }
     },
     {
       "id": 2,
       "name": "Фронтенд",
-      "colorId": 4
+      "colorId": 4,
+      "color": {
+        "id": 2,
+        "hex": "#42B883",
+        "name": "green"
+      }
     },
     {
       "id": 3,
       "name": "Фильмы и сериалы",
-      "colorId": 3
+      "colorId": 3,
+      "color": {
+        "id": 3,
+        "hex": "#64C4ED",
+        "name": "blue"
+      }
     },
     {
       "id": 4,
       "name": "Книги",
-      "colorId": 2
+      "colorId": 2,
+      "color": {
+        "id": 4,
+        "hex": "#FFBBCC",
+        "name": "pink"
+      }
     },
     {
       "id": 5,
       "name": "Личное",
-      "colorId": 1
+      "colorId": 1,
+      "color": {
+        "id": 5,
+        "hex": "#C9D1D3",
+        "name": "grey"
+      }
     },
     {
+      "id": 6,
       "name": "Спорт",
       "colorId": 3,
-      "id": 6
+      "color": {
+        "id": 6,
+        "hex": "#C355F5",
+        "name": "purple"
+      }
     },
     {
+      "id": 7,
       "name": "Курс по ReactJS ToDo",
       "colorId": 7,
-      "id": 7
+      "color": {
+        "id": 7,
+        "hex": "#110133",
+        "name": "black"
+      }
     }
   ],
   "tasks": [

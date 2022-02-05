@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddList from "./components/AddList/AddList";
 import Tasks from "./components/Tasks/index";
 import List from "./components/List/index";
 import DB from "./assets/db.json";
+import axios from "axios";
+
 
 function App() {
+
   const [lists, setLists] = useState(
     DB.lists.map((item) => {
       item.color = DB.colors.filter(
@@ -14,10 +17,16 @@ function App() {
     })
   );
 
+  useEffect(() => {
+    axios.get('http://localhost:3001/lists').then(({data}) => {
+      console.log(data);
+      });
+  }, [])
+
   const onAddList = (obj) => {
     const newList = [...lists, obj];
     setLists(newList);
-  };
+  }; // Функция для канкатенации объектов и добавления переменной с новым объектов в useState
 
   return (
     <div className="todo">
