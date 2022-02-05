@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import List from "../List";
 import Badge from "../Badge";
 import closeSvg from "../../assets/img/close.svg";
@@ -6,28 +6,32 @@ import "./AddList.scss";
 
 const AddList = ({ colors, onAdd }) => {
   const [visiblePopup, setVisiblePopup] = useState(false); // для скрывания окна
-  const [selectedColor, selectColor] = useState(colors[0].id); // хранение выбранного цвета
-  const [inputValue, setInputValue] = useState(''); // хранение введенного значения
+  const [selectedColor, selectColor] = useState(3); // хранение выбранного цвета
+  const [inputValue, setInputValue] = useState(""); // хранение введенного значения
+
+  useEffect(() => {
+    if (Array.isArray(colors)) {
+      selectColor(colors[0].id);
+    }
+  }, [colors]);
 
   const onClose = () => {
     setVisiblePopup(false);
     selectColor(colors[0].id);
-    setInputValue('')
-  } // функция для закрытия окна
-  
+    setInputValue("");
+  }; // функция для закрытия окна
 
   const addList = () => {
-    if (!inputValue) { 
+    if (!inputValue) {
       alert("Введите название списка");
-      return; //если не задано значение выводится алерт 
+      return; //если не задано значение выводится алерт
     }
     const color = colors.filter((c) => c.id === selectedColor)[0].name; // фильтрация для сравнение с всех цветов с выбраным
-    onAdd({ id: Date.now(), name: inputValue, color }); // передача объекта в другой компонент для добавления 
+    onAdd({ id: Date.now(), name: inputValue, color }); // передача объекта в другой компонент для добавления
     setVisiblePopup(false); //скрытие окна
-    setInputValue(''); //сброс значения в инпуте
+    setInputValue(""); //сброс значения в инпуте
     selectColor(colors[0].id); //сброс цвета
   };
-  
 
   return (
     <div className="add-list">

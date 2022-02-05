@@ -4,7 +4,7 @@ import "./List.scss";
 import removeSvg from "../../assets/img/remove.svg";
 
 function List({ items, onClick, isRemovable, onRemove }) {
-
+  console.log('1', items);
   return (
     <ul className="list">
       {items.map((item, index) => (
@@ -16,7 +16,7 @@ function List({ items, onClick, isRemovable, onRemove }) {
             {item.icon ? (
               item.icon
             ) : (
-              <i className={`badge badge--${item.color}`}></i> // если icon есть отображаем его, если нет то color
+              <i className={`badge badge--${item.color.name}`}></i> // если icon есть отображаем его, если нет то color
             )}
           </i>
           <span onClick={onClick}> {item.name}</span> 

@@ -2,26 +2,21 @@ import React, { useState, useEffect } from "react";
 import AddList from "./components/AddList/AddList";
 import Tasks from "./components/Tasks/index";
 import List from "./components/List/index";
-import DB from "./assets/db.json";
 import axios from "axios";
 
-
 function App() {
-
-  const [lists, setLists] = useState(
-    DB.lists.map((item) => {
-      item.color = DB.colors.filter(
-        (color) => color.id === item.colorId
-      )[0].name; // фильтруем название цветов из мессива DB.colors и добавляем каждый цвет в соответствии с id элемента в массив DB.lists
-      return item;
-    })
-  );
+  const [lists, setLists] = useState(null);
+  const [colors, setColors] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/lists').then(({data}) => {
-      console.log(data);
-      });
-  }, [])
+    axios.get("http://localhost:3001/lists").then(({ data }) => {
+      setLists(data);
+    });
+
+    axios.get("http://localhost:3001/colors").then(({ data }) => {
+      setColors(data);
+    });
+  }, []);
 
   const onAddList = (obj) => {
     const newList = [...lists, obj];
@@ -54,8 +49,8 @@ function App() {
             },
           ]}
         />
-        <List items={lists} isRemovable />
-        <AddList onAdd={onAddList} colors={DB.colors} />
+        {lists ? (<List items={lists} isRemovable />) : ('Загрузка')}
+        <AddList onAdd={onAddList} colors={colors} />
       </div>
       <div className="todo__tasks">
         <Tasks />
