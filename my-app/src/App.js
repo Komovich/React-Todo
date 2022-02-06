@@ -9,7 +9,7 @@ function App() {
   const [colors, setColors] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/lists").then(({ data }) => {
+    axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({ data }) => {
       setLists(data);
     });
 
@@ -49,11 +49,22 @@ function App() {
             },
           ]}
         />
-        {lists ? (<List items={lists} isRemovable />) : ('Загрузка')}
+        {lists ? (
+          <List
+            onRemove={(id) => {
+              const newLists = lists.filter((item) => item.id !== id);
+              setLists(newLists);
+            }}
+            items={lists}
+            isRemovable
+          />
+        ) : (
+          "Загрузка"
+        )}
         <AddList onAdd={onAddList} colors={colors} />
       </div>
       <div className="todo__tasks">
-        <Tasks />
+       {lists && <Tasks list={lists[1]} />}
       </div>
     </div>
   );

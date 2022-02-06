@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import List from "../List";
 import Badge from "../Badge";
 import closeSvg from "../../assets/img/close.svg";
+import axios from "axios";
 import "./AddList.scss";
 
 const AddList = ({ colors, onAdd }) => {
   const [visiblePopup, setVisiblePopup] = useState(false); // для скрывания окна
   const [selectedColor, selectColor] = useState(3); // хранение выбранного цвета
   const [inputValue, setInputValue] = useState(""); // хранение введенного значения
+  const [isLoadding, setIsLoading] = useState(true); // флаг отпработки асинхронного запроса
 
   useEffect(() => {
     if (Array.isArray(colors)) {
@@ -24,13 +26,21 @@ const AddList = ({ colors, onAdd }) => {
   const addList = () => {
     if (!inputValue) {
       alert("Введите название списка");
-      return; //если не задано значение выводится алерт
+      return;
     }
-    const color = colors.filter((c) => c.id === selectedColor)[0].name; // фильтрация для сравнение с всех цветов с выбраным
-    onAdd({ id: Date.now(), name: inputValue, color }); // передача объекта в другой компонент для добавления
-    setVisiblePopup(false); //скрытие окна
-    setInputValue(""); //сброс значения в инпуте
-    selectColor(colors[0].id); //сброс цвета
+    setIsLoading(true);
+    axios
+      .post("http://localhost:3001/lists", {
+        name: inputValue,
+        color: selectedColor,
+      })
+      .then(({ data }) => {
+        const color = colors.filter((c) => c.id === selectedColor)[0].name;
+        const listObj = { ...data, color: { name: color } };
+        onAdd(listObj);
+        onClose();
+        setIsLoading(false);
+      })
   };
 
   return (
