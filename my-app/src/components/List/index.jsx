@@ -1,46 +1,58 @@
-import React from "react";
-import classNames from "classnames";
-import "./List.scss";
-import removeSvg from "../../assets/img/remove.svg";
-import axios from "axios";
+import React from 'react';
+import classNames from 'classnames';
+import axios from 'axios';
 
-function List({ items, onClick, isRemovable, onRemove }) {
-  const removeList = (item) => {
-    console.log(item);
-    if (window.confirm("Вы действительно хотите удалить список?")) {
-      axios.delete('http://localhost:3001/lists/' + item).then(() => {
-        onRemove(item);
+import removeSvg from '../../assets/img/remove.svg';
+
+import Badge from '../Badge';
+
+import './List.scss';
+
+const List = ({
+  items,
+  isRemovable,
+  onClick,
+  onRemove,
+  onClickItem,
+  activeItem
+}) => {
+  const removeList = item => {
+    if (window.confirm('Вы действительно хотите удалить список?')) {
+      axios.delete('http://localhost:3001/lists/' + item.id).then(() => {
+        onRemove(item.id);
       });
     }
   };
 
   return (
-    <ul className="list">
+    <ul onClick={onClick} className="list">
       {items.map((item, index) => (
         <li
           key={index}
-          className={classNames(item.className, { active: item.active })} // если item.active true, отрабатывает className=active
+          className={classNames(item.className, {
+            active: item.active
+              ? item.active
+              : activeItem && activeItem.id === item.id
+          })}
+          onClick={onClickItem ? () => onClickItem(item) : null}
         >
-          <i>
-            {item.icon ? (
-              item.icon
-            ) : (
-              <i className={`badge badge--${item.color}`}></i> // если icon есть отображаем его, если нет то color
-            )}
-          </i>
-          <span onClick={onClick}> {item.name}</span>
+          <i>{item.icon ? item.icon : <Badge color={item.color.name} />}</i>
+          <span>
+            {item.name}
+            {item.tasks && ` (${item.tasks.length})`}
+          </span>
           {isRemovable && (
             <img
-              onClick={() => removeList(item.id)}
               className="list__remove-icon"
               src={removeSvg}
               alt="Remove icon"
+              onClick={() => removeList(item)}
             />
           )}
         </li>
       ))}
     </ul>
   );
-}
+};
 
 export default List;
