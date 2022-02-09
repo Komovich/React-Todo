@@ -1,42 +1,58 @@
 .list {
-  $self: &;
+ $self: &;
 
   margin-bottom: 30px;
 
   &__add-button {
-    opacity: 0.4;
+    svg {
+      path {
+        stroke: #868686;
+      }
+    }
+    span {
+      color: #767676;
+    }
 
     &:hover {
-      opacity: 1;
+      svg {
+        path {
+          stroke: #868686;
+        }
+      }
+      span {
+        color: #767676;
+      }
     }
+  }
+
+  &__remove-icon {
+    opacity: 0;
   }
 
   li {
     display: flex;
     align-items: center;
-    cursor: pointer;
     padding: 10px 12px;
-    transition: background-color 0.15s ease-in-out;
+    cursor: pointer;
 
     &:hover #{$self}__remove-icon {
       opacity: 0.2;
     }
 
     #{$self}__remove-icon {
-      opacity: 0;
-      transition: opacity 0.15s ease-in-out;
+      opacity: 0; // сила цвета 
+    }
 
-      &:hover {
-        opacity: 0.8;
-      }
+    &:hover {
+      opacity: 0.8;
     }
 
     span {
       flex: 1;
-      text-overflow: ellipsis;
-      overflow: hidden;
+      text-overflow: ellipsis; // обрезает текст 
+      overflow: hidden; // ограничивает ширину 
       width: 160px;
-      white-space: nowrap;
+      white-space: nowrap; // не будет переходить на следующую строку 
     }
 
     &:hover {
@@ -45,18 +61,12 @@
 
     &.active {
       background: #ffffff;
-      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.04);
-      border-radius: 4px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05); // тень
+      border-radius: 4px; // округление
     }
-
-    .badge {
-      position: relative;
-      left: 5px;
-    }
-
     i {
       display: inline-flex;
-      margin-right: 8px;
+      margin-right: 10px;
       svg {
         path {
           fill: #7c7c7c;

@@ -2,7 +2,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Продажи",
+      "name": "Продажи1",
       "colorId": 5
     },
     {
@@ -34,51 +34,6 @@
       "name": "Курс по ReactJS ToDo",
       "colorId": 7,
       "id": 7
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 8
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 9
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 10
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 11
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 12
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 13
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 14
-    },
-    {
-      "name": "d",
-      "color": 3,
-      "id": 15
-    },
-    {
-      "name": "d",
-      "color": 2,
-      "id": 16
     }
   ],
   "tasks": [
