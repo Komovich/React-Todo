@@ -44,17 +44,30 @@
   &:active {
     background: darken(#4dd599, 10%);
   }
+
+  &--grey {
+    background: #F4F6F8;
+    color: #9C9C9C;
+
+    &:hover {
+      background: darken(#f4f6f8, 3%); // при наведении увеличивется темнота цвета
+    }
+
+    &:active {
+      background: darken(#4dd599, 10%);
+    }
+  }
 }
 
 .field {
   background: #fff;
-  border: 1px solid #efefef;
+  border: 1px solid #efefef !important;
   box-sizing: border-box;
   border-radius: 4px;
   padding: 8px 12px;
   width: 100%;
 
-  &:hover {
+  &:focus {
     border-color: #efefef;
   }
 }
