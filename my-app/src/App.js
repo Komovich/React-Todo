@@ -9,6 +9,7 @@ function App() {
   const [colors, setColors] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
 
+
   useEffect(() => {
     axios
       .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
@@ -19,12 +20,12 @@ function App() {
     axios.get("http://localhost:3001/colors").then(({ data }) => {
       setColors(data);
     });
-  }, []);
+  }, []); // Получаем от сервера массивы данных и сетим их в хуки
 
   const onAddList = (obj) => {
     const newList = [...lists, obj];
     setLists(newList);
-  }; // Функция для канкатенации объектов и добавления переменной с новым объектов в useState
+  }; // Добавление новой категории в список
 
   const onEditListTitle = (id, title) => {
     const newList = lists.map((item) => {
@@ -33,7 +34,18 @@ function App() {
       }
       return item;
     });
-  };
+    setLists(newList)
+  }; // Изменение названия категории, работает при открытии категории
+
+  const onAddTask = (listId, taskObj) => {
+    const newList = lists.map((item) => {
+      if (item.id === listId) {
+        item.tasks = [...item.tasks, taskObj];
+      }
+      return item;
+    });
+    setLists(newList)
+  }; // Добаввление новых задач внутри категорий
 
   return (
     <div className="todo">
@@ -57,7 +69,7 @@ function App() {
               ),
 
               name: "Все задачи",
-              active: true,
+              active: false,
             },
           ]}
         />
@@ -80,7 +92,7 @@ function App() {
       </div>
       <div className="todo__tasks">
         {lists && activeItem && (
-          <Tasks list={activeItem} onEditTitle={onEditListTitle} />
+          <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle} />
         )}
       </div>
     </div>

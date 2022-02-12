@@ -1,19 +1,35 @@
 import React, { useState } from "react";
+import axios from "axios";
 import addSvg from "../../assets/img/add.svg";
 
-const AddTaskForm = () => {
+const AddTaskForm = ({ list, onAddTask }) => {
   const [visibleForm, setFormVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState();
 
   const toggleFormVisible = () => {
     setFormVisible(!visibleForm);
-    setInputValue('');
+    setInputValue("");
   };
 
   const addTask = () => {
-    // ....
-    toggleFormVisible();
-  }
+    const obj = {
+      listId: list.id,
+      text: inputValue,
+      completed: false,
+    };
+    setIsLoading(true);
+    axios.post("http://localhost:3001/tasks", obj).then(({ data }) => {
+      onAddTask(list.id, data);
+      toggleFormVisible();
+    })
+    .catch(() => {
+      alert('Ошибка при добавлении задачи')
+    })
+    .finally(() => {
+      setIsLoading(false)
+    })
+  }; // формируем новый объект(это новая задача),  передаём объект в App.js и убираем окно добавления задач.
 
   return (
     <div className="tasks__form">
@@ -32,7 +48,9 @@ const AddTaskForm = () => {
             onChange={(e) => setInputValue(e.target.value)}
           />
 
-          <button onClick={addTask} className="button">Добавить задачу</button>
+          <button disabled={isLoading} onClick={addTask} className="button">
+          {isLoading ? "Добавление" : "Добавить задачу"}
+          </button>
 
           <button onClick={toggleFormVisible} className="button button--grey">
             Отмена

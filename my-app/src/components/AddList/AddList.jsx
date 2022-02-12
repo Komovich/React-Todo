@@ -9,7 +9,7 @@ const AddList = ({ colors, onAdd }) => {
   const [visiblePopup, setVisiblePopup] = useState(false); // для скрывания окна
   const [selectedColor, selectColor] = useState(3); // хранение выбранного цвета
   const [inputValue, setInputValue] = useState(""); // хранение введенного значения
-  const [isLoadding, setIsLoading] = useState(true); // флаг отпработки асинхронного запроса
+  const [isLoading, setIsLoading] = useState(true); // флаг отпработки асинхронного запроса
 
   useEffect(() => {
     if (Array.isArray(colors)) {
@@ -39,9 +39,14 @@ const AddList = ({ colors, onAdd }) => {
         const listObj = { ...data, color: { name: color } };
         onAdd(listObj);
         onClose();
+      })
+      .catch(() => {
+        alert('Ошибка при добавлении списка')
+      })
+      .finally(() => {
         setIsLoading(false);
       })
-  };
+  }; // Добавление категории, передача нового объекта на сервер и получение сформированного объекта, после этого передача данных в компонент App.js
 
   return (
     <div className="add-list">
@@ -104,8 +109,8 @@ const AddList = ({ colors, onAdd }) => {
             ))}
           </div>
 
-          <button className="button" onClick={addList}>
-            Добавить
+          <button disabled={isLoading} className="button" onClick={addList}>
+            {isLoading ? "Добавление" : "Добавить список"}
           </button>
         </div>
       )}
